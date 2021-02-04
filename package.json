@@ -10,6 +10,7 @@
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
+    "date-fns": "^2.16.1",
     "express": "^4.17.1",
     "typescript": "^4.1.3",
     "uuid": "^8.3.2",
