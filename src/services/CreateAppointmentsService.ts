@@ -9,7 +9,13 @@ interface Request {
 }
 
 /**
- * Dependecy Inversion (SOLID)
+ * SOLID
+ *
+ * Single Responsability Principle (S)
+ * Dependecy Inversion (D)
+ *
+ *
+ *
  * O service fica somente com uma responsabilidade.
  * DRY: Don't repeat yourself (Não repita regra de negócio)
  */
