@@ -9,7 +9,9 @@ const appointmentsRepository = new AppointmentsRepository();
 
 // SoC: Separation of Concerns (Separação de Preocupações)
 // DTO - Data Transfer Object
-// Rota: receber a requisição - Chamar outro arquivo para tratar a requisição - e retornar a resposta
+// Rota: receber a requisição - Chamar outro arquivo para tratar a requisição - e retornar a resposta.
+// Rota pode transformar dados.
+// Services é responsável por toda regra de negócio.
 
 appointmentsRouter.get('/', (request, response) => {
   const appointments = appointmentsRepository.all();
@@ -38,3 +40,5 @@ appointmentsRouter.post('/', (request, response) => {
 });
 
 export default appointmentsRouter;
+
+
