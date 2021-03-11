@@ -1,10 +1,11 @@
+import 'reflect-metadata';
 import { Router } from 'express';
 import { parseISO } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import CreateAppointmentService from '../services/CreateAppointmentsService';
 
 const appointmentsRouter = Router();
-const appointmentsRepository = new AppointmentsRepository();
 
 
 // SoC: Separation of Concerns (Separação de Preocupações)
@@ -13,23 +14,24 @@ const appointmentsRepository = new AppointmentsRepository();
 // Rota pode transformar dados.
 // Services é responsável por toda regra de negócio.
 
-appointmentsRouter.get('/', (request, response) => {
-  const appointments = appointmentsRepository.all();
+appointmentsRouter.get('/', async (request, response) => {
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+  const appointments = await appointmentsRepository.find();
 
   return response.json(appointments);
 });
 
 
-appointmentsRouter.post('/', (request, response) => {
+appointmentsRouter.post('/', async (request, response) => {
 
   try {
     const { provider, date } = request.body;
 
     const parsedDate = parseISO(date); // transformação de dado
 
-    const createAppointmentService = new CreateAppointmentService(appointmentsRepository);
+    const createAppointment = new CreateAppointmentService();
 
-    const appointment = createAppointmentService.execute({ date: parsedDate, provider });
+    const appointment = await createAppointment.execute({ date: parsedDate, provider });
 
     return response.json(appointment);
 
