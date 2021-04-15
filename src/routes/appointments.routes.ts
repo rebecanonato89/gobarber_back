@@ -4,6 +4,8 @@ import { parseISO } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import CreateAppointmentService from '../services/CreateAppointmentsService';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 
 const appointmentsRouter = Router();
 
@@ -13,6 +15,8 @@ const appointmentsRouter = Router();
 // Rota: receber a requisição - Chamar outro arquivo para tratar a requisição - e retornar a resposta.
 // Rota pode transformar dados.
 // Services é responsável por toda regra de negócio.
+
+appointmentsRouter.use(ensureAuthenticated);
 
 appointmentsRouter.get('/', async (request, response) => {
   const appointmentsRepository = getCustomRepository(AppointmentsRepository);
