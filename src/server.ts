@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import routes from './routes/routes';
 import uploadConfig from './config/upload';
+import cors from 'cors';
 
 
 import './database';
@@ -9,6 +10,7 @@ import AppError from './errors/AppError';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
